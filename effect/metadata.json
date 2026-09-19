@@ -1,0 +1,18 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "crabiosa"
+            }
+        ],
+        "Category": "Window Management",
+        "Description": "Inverts horizontal touchpad desktop swipes and hands three-finger vertical swipes to Overview/Grid",
+        "EnabledByDefault": false,
+        "License": "GPL-2.0-or-later",
+        "Name": "Swipe Remap",
+        "Version": "0.1.0"
+    },
+    "org.kde.kwin.effect": {
+        "enabledByDefaultMethod": false
+    }
+}
