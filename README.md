@@ -50,8 +50,7 @@ before. No logout is needed: KWin picks the effect up in the running session.
 
 If the swipes suddenly go back to the KWin defaults, a KWin update happened.
 KWin rejects third-party effects built against another version, silently and
-without an error, so the effect simply stops loading. There is nothing to
-diagnose or reinstall:
+without an error, so the effect simply stops loading. Just reinstall the plugin:
 
 ```sh
 ./install.sh
@@ -68,10 +67,6 @@ some gestures, other finger counts, a different action), fork the repository and
 hand it to your AI agent: the effect is one small C++ file and the scripts
 around it are plain bash.
 
-Which direction feels right depends on your touchpad's scroll preference. If
-this effect inverts it the wrong way for you, the sign to flip is one line in
-`effect/swiperemap.cpp`.
-
 ## No support
 
 Issues and pull requests are not accepted, and there is no support. This is a
@@ -80,11 +75,11 @@ personal tool that happens to be useful to others.
 ## Why not InputActions or a KWin script
 
 [InputActions](https://github.com/taj-ny/InputActions) is the usual answer for
-custom gestures, but it turns a gesture into a global shortcut: the gesture is
-consumed and the action fires discretely, so the desktop no longer follows your
-fingers. This effect was written for exactly that difference — to keep the
-native feel and still change the direction. KWin scripts cannot do it at all,
-because they have no access to input events.
+custom gestures, but it turns a gesture into a global shortcut: the swipe is
+consumed and the shortcut fires, so there is no live preview while you swipe.
+This effect keeps KWin's own preview and switch on release and only changes the
+direction. KWin scripts cannot do it at all: they have no access to input
+events.
 
 ## Troubleshooting
 
