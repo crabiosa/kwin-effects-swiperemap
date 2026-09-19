@@ -34,6 +34,12 @@ kwin_answers() {
     busctl --user call org.kde.KWin /KWin org.kde.KWin supportInformation >/dev/null 2>&1
 }
 
+# Ask for root only when sudo would actually prompt: a passwordless setup (or an
+# already authorised sudo) goes through without a single question.
+root() {
+    sudo -n true 2>/dev/null || sudo -v || die "sudo failed"
+}
+
 effect_loaded() {
     [[ "$(busctl --user call org.kde.KWin /Effects org.kde.kwin.Effects isEffectLoaded s "$effect_id" 2>/dev/null || true)" == "b true" ]]
 }
@@ -98,8 +104,8 @@ plugin_root="$(qtpaths6 --plugin-dir 2>/dev/null || qmake6 -query QT_INSTALL_PLU
 dest="$plugin_root/kwin/effects/plugins/$effect_id.so"
 
 step "Install"
-printf '    this installs system-wide and needs root, asking for your password once\n'
-sudo -v || die "sudo failed"
+printf '    installing system-wide, so sudo is used; a password prompt here is expected\n'
+root
 
 # Replacing a .so that KWin has loaded can take the compositor down, so the
 # running copy is stopped first. This is why there is no separate "disable"

@@ -39,8 +39,8 @@ fi
 
 step "Remove"
 if [[ -f "$dest" ]]; then
-    printf '    this removes a system-wide file and needs root, asking for your password once\n'
-    sudo -v || die "sudo failed"
+    printf '    removing a system-wide file, so sudo is used; a password prompt here is expected\n'
+    sudo -n true 2>/dev/null || sudo -v || die "sudo failed"
     sudo rm -f "$dest"
     ok "$dest"
 else
