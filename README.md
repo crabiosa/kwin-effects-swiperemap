@@ -2,24 +2,24 @@
 
 A small KWin effect for Plasma 6 that changes two touchpad gestures:
 
-- **Horizontal swipes are inverted.** Swiping right switches to the desktop on
-  the right, swiping left to the desktop on the left, and the same for
-  four-finger swipes.
-- **Three-finger vertical swipes become four-finger ones**, which KWin maps to
-  Overview (up) and Grid (down). On a single row of desktops the three-finger
-  vertical gesture does nothing at all, so nothing is lost.
+- **Swiping right switches to the desktop on the right**, swiping left to the
+  desktop on the left, with three fingers and four fingers alike.
+- **Three-finger swipes up and down open Overview and Grid.** The effect
+  rewrites them into four-finger swipes, which is what KWin already uses for
+  Overview (up) and Grid (down). The native three-finger up/down gesture it
+  replaces switches between rows of desktops.
 
-The gesture handling itself stays native: the effect only rewrites the finger
-count and mirrors the horizontal delta before KWin reads them. The live preview
-(the desktop follows your fingers) and the switch on release are still KWin's
-own.
+Nothing else changes: while you swipe you still see KWin's live preview, and the
+switch still happens when you let go — the effect only rewrites the finger count
+and the horizontal delta before KWin reads them.
 
-## This is a workaround, not a feature
+## This is a workaround
 
-Plasma has no setting for either of these. When gestures become configurable
-upstream ([bug 402857](https://bugs.kde.org/show_bug.cgi?id=402857)), this
-effect has no reason to exist. Until then it is a hack that has to be rebuilt
-after every KWin update.
+Plasma has no setting for either of these: the swipe direction is hardcoded,
+and gestures are not configurable yet ([bug 402857](https://bugs.kde.org/show_bug.cgi?id=402857),
+[bug 454231](https://bugs.kde.org/show_bug.cgi?id=454231)). When that changes
+upstream, this effect has no reason to exist. Until then it is a hack that has
+to be rebuilt after every KWin update.
 
 ## Requirements
 
