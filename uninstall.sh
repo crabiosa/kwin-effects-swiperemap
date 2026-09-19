@@ -39,7 +39,7 @@ fi
 
 step "Remove"
 if [[ -f "$dest" ]]; then
-    printf '    removing a system-wide file, so sudo is used; a password prompt here is expected\n'
+    printf '    removing a system-wide file, so sudo is used, a password prompt may appear here\n'
     sudo -n true 2>/dev/null || sudo -v || die "sudo failed"
     sudo rm -f "$dest"
     ok "$dest"

@@ -104,7 +104,7 @@ plugin_root="$(qtpaths6 --plugin-dir 2>/dev/null || qmake6 -query QT_INSTALL_PLU
 dest="$plugin_root/kwin/effects/plugins/$effect_id.so"
 
 step "Install"
-printf '    installing system-wide, so sudo is used; a password prompt here is expected\n'
+printf '    installing system-wide, so sudo is used, a password prompt may appear here\n'
 root
 
 # Replacing a .so that KWin has loaded can take the compositor down, so the
@@ -155,7 +155,7 @@ fi
 
 if effect_loaded; then
     ok "running in the current session"
-    printf '\nDone. Swipe three fingers left: the desktop now moves the other way.\n'
+    printf '\nDone. Swipe three fingers right: the desktop now moves to the right.\n'
 else
     ok "the effect is not loaded"
     cat <<'EOF'

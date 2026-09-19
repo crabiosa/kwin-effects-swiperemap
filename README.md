@@ -2,8 +2,9 @@
 
 A small KWin effect for Plasma 6 that changes two touchpad gestures:
 
-- **Horizontal swipes are inverted.** Swiping left moves to the desktop on the
-  right, and the same for four-finger swipes.
+- **Horizontal swipes are inverted.** Swiping right switches to the desktop on
+  the right, swiping left to the desktop on the left, and the same for
+  four-finger swipes.
 - **Three-finger vertical swipes become four-finger ones**, which KWin maps to
   Overview (up) and Grid (down). On a single row of desktops the three-finger
   vertical gesture does nothing at all, so nothing is lost.
@@ -35,9 +36,9 @@ cd kwin-effects-swiperemap
 ./install.sh
 ```
 
-The effect is installed **system-wide**, so the script will ask for your sudo
-password once. It says so right before asking. No logout is needed: KWin picks
-the effect up in the running session.
+The effect is installed **system-wide**, so the script uses sudo. If your setup
+wants a password, you get that prompt once and the script announces it right
+before. No logout is needed: KWin picks the effect up in the running session.
 
 ## Uninstall
 
@@ -66,6 +67,10 @@ The behaviour is fixed on purpose. If you want it different (only inverting
 some gestures, other finger counts, a different action), fork the repository and
 hand it to your AI agent: the effect is one small C++ file and the scripts
 around it are plain bash.
+
+Which direction feels right depends on your touchpad's scroll preference. If
+this effect inverts it the wrong way for you, the sign to flip is one line in
+`effect/swiperemap.cpp`.
 
 ## No support
 
