@@ -22,11 +22,11 @@ die()  { printf '\nerror: %s\n' "$*" >&2; exit 1; }
 packages_hint() {
     cat >&2 <<'EOF'
 
-Install the build tools and the KWin development files for your distribution:
+Install the build tools and the KWin development packages for your distribution:
 
-  Fedora:        sudo dnf install cmake ninja-build gcc-c++ kwin-devel extra-cmake-modules
-  Debian/Ubuntu: sudo apt install cmake ninja-build g++ kwin-dev extra-cmake-modules
-  otherwise:     cmake, ninja, a C++ compiler and your distribution's KWin development package
+  Fedora:        sudo dnf install cmake ninja-build gcc-c++ kwin-devel extra-cmake-modules libepoxy-devel libdrm-devel
+  Debian/Ubuntu: sudo apt install cmake ninja-build g++ kwin-dev extra-cmake-modules libepoxy-dev libdrm-dev
+  otherwise:     cmake, ninja, a C++ compiler and your distribution's KWin development packages
 EOF
 }
 
@@ -71,13 +71,14 @@ fi
 ok "cmake, ninja, c++"
 
 mkdir -p "$build_dir"
+# A cache left over from an earlier attempt (another KWin version, another
+# compiler, a failed experiment) can make cmake fail on stale values, so every
+# run starts from a clean configure. Compiling stays incremental.
+rm -f "$build_dir/CMakeCache.txt"
 if ! cmake -S "$here/effect" -B "$build_dir" -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo >"$log" 2>&1; then
-    if grep -qiE "KWin|ECM" "$log"; then
-        printf 'The KWin development files (KWinConfig.cmake) or extra-cmake-modules are missing.\n' >&2
-        packages_hint
-    else
-        printf 'cmake failed:\n' >&2
-    fi
+    printf 'cmake could not configure the build; the usual reason is a missing package.\n' >&2
+    packages_hint
+    printf '\ncmake said:\n' >&2
     tail -n 5 "$log" >&2
     printf '\nFull log: %s\n' "$log" >&2
     exit 1
